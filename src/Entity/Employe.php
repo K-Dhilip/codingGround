@@ -27,13 +27,13 @@ class Employe
     #[ORM\OneToMany(mappedBy: 'employe', targetEntity: Region::class)]
     private Collection $Region;
 
-    #[ORM\ManyToOne(inversedBy: 'employes')]
-    private ?region $region = null;
+    // #[ORM\ManyToOne(inversedBy: 'employes')]
+    // private ?region $region = null;
 
-    public function __construct()
-    {
-        $this->Region = new ArrayCollection();
-    }
+    // public function __construct()
+    // {
+    //     $this->Region = new ArrayCollection();
+    // }
 
     public function getId(): ?int
     {
@@ -76,42 +76,42 @@ class Employe
         return $this;
     }
 
-    /**
-     * @return Collection<int, Region>
-     */
-    public function getRegion(): Collection
-    {
-        return $this->Region;
-    }
+    // /**
+    //  * @return Collection<int, Region>
+    //  */
+    // public function getRegion(): Collection
+    // {
+    //     return $this->Region;
+    // }
 
-    public function addRegion(Region $region): self
-    {
-        if (!$this->Region->contains($region)) {
-            $this->Region->add($region);
-            $region->setEmploye($this);
-        }
+    // public function addRegion(Region $region): self
+    // {
+    //     if (!$this->Region->contains($region)) {
+    //         $this->Region->add($region);
+    //         $region->setEmploye($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeRegion(Region $region): self
-    {
-        if ($this->Region->removeElement($region)) {
-            // set the owning side to null (unless already changed)
-            if ($region->getEmploye() === $this) {
-                $region->setEmploye(null);
-            }
-        }
+    // public function removeRegion(Region $region): self
+    // {
+    //     if ($this->Region->removeElement($region)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($region->getEmploye() === $this) {
+    //             $region->setEmploye(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function setRegion(?region $region): self
-    {
-        $this->region = $region;
+    // public function setRegion(?region $region): self
+    // {
+    //     $this->region = $region;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     
 }

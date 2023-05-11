@@ -18,15 +18,27 @@ class Region
     #[ORM\Column(length: 40)]
     private ?string $nom = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Region')]
-    private ?Employe $employe = null;
+    // #[ORM\ManyToOne(inversedBy: 'Region')]
+    // private ?Employe $employe = null;
 
-    #[ORM\OneToMany(mappedBy: 'region', targetEntity: Employe::class)]
-    private Collection $employes;
+    // #[ORM\OneToMany(mappedBy: 'region', targetEntity: Employe::class)]
+    // private Collection $employes;
+
+    // #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'region')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?self $region = null;
+
+    // #[ORM\ManyToOne(inversedBy: 'region')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?Visiteur $visiteur = null;
+
+    #[ORM\ManyToMany(targetEntity: Visiteur::class, mappedBy: 'regions')]
+    private Collection $visiteurs;
 
     public function __construct()
     {
-        $this->employes = new ArrayCollection();
+    //     //$this->employes = new ArrayCollection();
+         $this->visiteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,6 +95,57 @@ class Region
             if ($employe->getRegion() === $this) {
                 $employe->setRegion(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getRegion(): ?self
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?self $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getVisiteur(): ?Visiteur
+    {
+        return $this->visiteur;
+    }
+
+    public function setVisiteur(?Visiteur $visiteur): self
+    {
+        $this->visiteur = $visiteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Visiteur>
+     */
+    public function getVisiteurs(): Collection
+    {
+        return $this->visiteurs;
+    }
+
+    public function addVisiteur(Visiteur $visiteur): self
+    {
+        if (!$this->visiteurs->contains($visiteur)) {
+            $this->visiteurs->add($visiteur);
+            $visiteur->addRegion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisiteur(Visiteur $visiteur): self
+    {
+        if ($this->visiteurs->removeElement($visiteur)) {
+            $visiteur->removeRegion($this);
         }
 
         return $this;
