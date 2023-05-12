@@ -39,20 +39,22 @@ class VisiteurRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Visiteur[] Returns an array of Visiteur objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+   * @return Visiteur[] Returns an array of Visiteur objects
+     */
+    public function findByNom($value1, $value2 ): array
+   {
+       return $this->createQueryBuilder('v')
+           ->andWhere('v.nom = :val')
+          ->setParameter('val', $value1)
+          ->andWhere('v.prenom = :val1')
+          ->setParameter('val', $value2)
+           ->orderBy('v.nom', 'ASC')
+          //->setMaxResults(10)
+           ->getQuery()
+          ->getResult()
+        ;
+ }
 
 //    public function findOneBySomeField($value): ?Visiteur
 //    {

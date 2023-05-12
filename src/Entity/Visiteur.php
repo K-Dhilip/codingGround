@@ -25,6 +25,12 @@ class Visiteur
     #[ORM\ManyToMany(targetEntity: Region::class, inversedBy: 'visiteurs')]
     private Collection $regions;
 
+    #[ORM\Column(length: 16)]
+    private ?string $cp = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $ville = null;
+
     public function __construct()
     {
          $this->regions = new ArrayCollection();
@@ -94,5 +100,29 @@ class Visiteur
     public function getRegions(): Collection
     {
         return $this->regions;
+    }
+
+    public function getCp(): ?string
+    {
+        return $this->cp;
+    }
+
+    public function setCp(string $cp): self
+    {
+        $this->cp = $cp;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
     }
 }

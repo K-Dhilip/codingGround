@@ -21,8 +21,11 @@ class SetvisiteurController extends AbstractController
         $region = new Region();
         $region->setNom("Ile de france");
         $visiteur = new Visiteur();
-        $visiteur->setNom("Paul");
-        $visiteur->setPrenom("Nick");
+        $visiteur->setNom("Mark");
+        $visiteur->setPrenom("Antony");
+        $visiteur->setCp("605010");
+        $visiteur->setVille("Paris");
+
         $visiteur->addRegion($region);
         $em -> persist($region);
         $em -> persist($visiteur);
