@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Visiteur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,9 +24,11 @@ class ConnexionController extends AbstractController {
     public function formToConnect()
     {
     $form = $this->createFormBuilder()
-    ->add('login', TextType::class)
-    ->add('motDePasse', PasswordType::class)
-    ->add('Valider',SubmitType::class)
+    ->add('Id', TextType::class)
+    ->add('Nom', TextType::class)
+    ->add('Prenom', TextType::class)
+    ->add('Ville', TextType::class)
+    ->add('Ajouter',SubmitType::class)
     ->add('annuler',ResetType::class)
     ->getForm();
     $request = Request::createFromGlobals(); // sauf si en paramètre de la
@@ -43,6 +46,25 @@ class ConnexionController extends AbstractController {
     return $this->render('connexion/index.html.twig',
     ['form'=>$form->createView()]);
     }
+
+
+    public function newVisiteur(Request $request) {
+        $Visiteur = new Visiteur();
+        $form = $this->createFormBuilder($Visiteur)
+        ->add('libelle', TextType::class)
+        ->add('Ajouter', SubmitType::class) //Symfony ne mappe pas les champs
+        ->add('annuler', ResetType::class) // de type Submit et Reset
+        ->getForm();
+        $form->handleRequest($request) ;
+        if ($form->isSubmitted()) {
+        return $this->render('connexion/index.html.twig',
+        array('Visiteur'=>$Visiteur));
+        }
+        return $this->render('connexion/index.html.twig',
+        array('form'=>$form->createView()));
+        }
+
+       
     }
 
 
