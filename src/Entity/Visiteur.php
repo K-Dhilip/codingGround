@@ -6,6 +6,7 @@ use App\Repository\VisiteurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VisiteurRepository::class)]
 class Visiteur
@@ -16,6 +17,9 @@ class Visiteur
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\MotBlank(
+        message:'Le champ "nom" ne doit pas etre vide',
+        normalizer:'trim')]
     private ?string $nom = null;
 
     #

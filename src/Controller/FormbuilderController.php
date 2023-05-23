@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use symfony\component\Validator\Validator\ValidatorInterface;
 
 
 
@@ -42,7 +42,16 @@ class FormbuilderController extends AbstractController
     return $this->render('formbuilder/index.html.twig',
     ['form'=>$form->createView()]);
     }
-
+    
+    /*#[Route('/formbuilder', name: 'app_formbuilder')]
+   
+   
+    public function formToConnect()
+    {
+    $errors = $validator->validate($nom);
+    if(count($errors)>0){
+        return new Response((string) $errors,400);
+    } */
    
     public function index(): Response
     {
